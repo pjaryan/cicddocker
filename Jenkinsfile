@@ -9,7 +9,7 @@ pipeline {
       stage('checkout') {
            steps {
              
-                git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
+                git branch: 'master', url: 'https://github.com/pjaryan/cicddocker.git'
              
           }
         }
@@ -25,8 +25,8 @@ pipeline {
            steps {
               
                 sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
-                //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
+                sh 'docker tag samplewebapp pjaryan/samplewebapp:latest'
+                //sh 'docker tag samplewebapp pjaryan/samplewebapp:$BUILD_NUMBER'
                
           }
         }
@@ -34,9 +34,9 @@ pipeline {
   stage('Publish image to Docker Hub') {
           
             steps {
-        withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push nikhilnidhi/samplewebapp:latest'
-        //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
+        withDockerRegistry([ credentialsId: "dockerHubAccount", url: "" ]) {
+          sh  'docker push pjaryan/samplewebapp:latest'
+        //  sh  'docker push pjaryan/samplewebapp:$BUILD_NUMBER' 
         }
                   
           }
